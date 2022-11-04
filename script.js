@@ -5,6 +5,9 @@ let axesEatX, axesEatY, widthEat, heightEat;
 let clearX, clearY, widthPlus, heightPlus;  
 let counterEat = 1;
 let tail = [];
+let horizontalDirection = '';
+let verticalDirection = '';
+let keyName = '-';
 window.addEventListener("DOMContentLoaded", () =>{
 
     // Al iniciar el juego la serpiente debe estar en una posición
@@ -18,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () =>{
         snake.fillStyle = "green";
         snake.fillRect(axesX, axesY, width, height);
         tail.push([axesX,axesY]);
-        move();
+        automatic();
         eat();
     }
     show();
@@ -32,57 +35,9 @@ window.addEventListener("DOMContentLoaded", () =>{
             clearY = 0;
             widthPlus = 0;
             heightPlus = 0;
-            const keyName = e.key;
-            console.log(keyName);
-            switch (keyName) {
-                case 'ArrowDown':
-                    axesY += 10;
-                    clearY = -10*counterEat;
-                    break;
-                case 'ArrowUp':
-                    axesY -= 10;
-                    clearY = 10*counterEat;
-                    break;
-                case 'ArrowLeft':
-                    axesX -= 10;
-                    clearX = 10*counterEat;
-                    break;
-                case 'ArrowRight':
-                    axesX += 10;
-                    clearX = -10*counterEat;
-                    break;
+            keyName = e.key;
+            speed();
             
-                default:
-                    return;
-                
-            }
-            tail.push([axesX,axesY]);
-            
-            if (canvas.getContext){
-            snake = canvas.getContext('2d');
-            snake.fillStyle = "green";
-            snake.fillRect(axesX, axesY, width, height);
-            
-            
-            }
-            if (axesX < 0 || axesX == 400 || axesY < 0 || axesY == 400  ) {
-                alert("GAME OVER");
-                location.reload();
-                
-            }
-
-            else if (axesX == axesEatX && axesY == axesEatY) {
-                counterEat++;
-                eat();
-                
-            }else{
-                snake.clearRect(tail[0][0], tail[0][1], width, height);
-                tail.shift();
-
-            }
-            
-            
-
         }); 
                         
     }
@@ -100,6 +55,102 @@ window.addEventListener("DOMContentLoaded", () =>{
         
                         
     }
+    function speed() {
+        switch (keyName) {
+            case 'ArrowDown':
+                if (!(verticalDirection === 'ArrowUp') || verticalDirection === '') {
+                    axesY += 10;
+                    
+                    clearY = -10*counterEat;
+                    horizontalDirection = '';
+                }else{
+                    return;
+                }
+                break;
+            case 'ArrowUp':
+                if (!(verticalDirection === 'ArrowDown') || verticalDirection === '') {
+                    axesY -= 10;
+                    clearY = 10*counterEat;
+                    horizontalDirection = '';
+                }else{
+                    return;
+                }
+                break;
+            case 'ArrowLeft':
+                if (!(horizontalDirection === 'ArrowRight')|| horizontalDirection === '') {
+                    axesX -= 10;
+                    clearX = 10*counterEat;
+                    verticalDirection = '';
+                }else{
+                    return;
+                }
+                break;
+            case 'ArrowRight':
+                if (!(horizontalDirection === 'ArrowLeft') || horizontalDirection === '') {
+                    axesX += 10;
+                    clearX = -10*counterEat;
+                    verticalDirection = '';
+                }else{
+                    return;
+                }
+
+                break;
+        
+            default:
+                return;
+            
+        }
+        for(let i = 1; i<tail.length; i++){
+            if (tail[i][0] == axesX && tail[i][1] == axesY) {
+                alert('GAME OVER');
+                location.reload();
+            }
+        }
+        verticalDirection = keyName;
+        horizontalDirection = keyName;
+        tail.push([axesX,axesY]);
+        
+        if (canvas.getContext){
+        snake = canvas.getContext('2d');
+        snake.fillStyle = "green";
+        snake.fillRect(axesX, axesY, width, height);
+        }
+
+
+
+
+        if (axesX < 0 || axesX == 400 || axesY < 0 || axesY == 400  ) {
+            alert("GAME OVER");
+            location.reload();
+            
+        }
+
+        else if (axesX == axesEatX && axesY == axesEatY) {
+            counterEat++;
+            eat();
+            
+        }else{
+            snake.clearRect(tail[0][0], tail[0][1], width, height);
+            tail.shift();
+
+        }
+        
+        
+    }
+
+
+    function automatic() {
+        if (verticalDirection ==  keyName || horizontalDirection == keyName) {
+            speed();
+        }else{
+            move();
+        }
+        
+    }
+
+
+
+
     
     
 
