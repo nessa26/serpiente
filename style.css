@@ -1,0 +1,43 @@
+body{
+    background: #2ef0e1;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 550px;
+}
+h1{
+    font-weight: 900;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+}
+.gang{
+    width: 1800px;
+    height: 850px;
+    border: 6px solid #f7e0ee ;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background: #c2e4ca;
+}    
+
+#btn{
+    background: #bd277b;
+    border-radius: 10px;
+    color: white;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+    border: none;
+    padding: 20px;
+}
