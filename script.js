@@ -48,7 +48,6 @@ window.addEventListener("DOMContentLoaded", () =>{
         axesEatY = (Math.floor(Math.random() * 40))*10;
         widthEat = 10;
         heightEat = 10;
-        // canvas = document.getElementById('tutorial');
         eatSnake = canvas.getContext('2d');
         eatSnake.fillStyle = "red";
         eatSnake.fillRect(axesEatX, axesEatY, widthEat, heightEat);
@@ -60,7 +59,6 @@ window.addEventListener("DOMContentLoaded", () =>{
             case 'ArrowDown':
                 if (!(verticalDirection === 'ArrowUp') || verticalDirection === '') {
                     axesY += 10;
-                    
                     clearY = -10*counterEat;
                     horizontalDirection = '';
                 }else{
@@ -93,9 +91,7 @@ window.addEventListener("DOMContentLoaded", () =>{
                 }else{
                     return;
                 }
-
                 break;
-        
             default:
                 return;
             
@@ -116,9 +112,6 @@ window.addEventListener("DOMContentLoaded", () =>{
         snake.fillRect(axesX, axesY, width, height);
         }
 
-
-
-
         if (axesX < 0 || axesX == 400 || axesY < 0 || axesY == 400  ) {
             alert("GAME OVER");
             location.reload();
@@ -134,13 +127,23 @@ window.addEventListener("DOMContentLoaded", () =>{
             tail.shift();
 
         }
+        setTimeout(() => {
+            automatic();
+            
+        }, 500);
         
-        
+        // fin
     }
 
 
     function automatic() {
+
         if (verticalDirection ==  keyName || horizontalDirection == keyName) {
+            clearX = 0;
+            clearY = 0;
+            widthPlus = 0;
+            heightPlus = 0;
+            
             speed();
         }else{
             move();
