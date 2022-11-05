@@ -127,12 +127,6 @@ window.addEventListener("DOMContentLoaded", () =>{
             tail.shift();
 
         }
-        setTimeout(() => {
-            automatic();
-            
-        }, 500);
-        
-        // fin
     }
 
 
