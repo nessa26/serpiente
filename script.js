@@ -8,6 +8,10 @@ let tail = [];
 let horizontalDirection = '';
 let verticalDirection = '';
 let keyName = '-';
+let score = 0;
+
+const scoreB =  document.getElementById("score")
+
 window.addEventListener("DOMContentLoaded", () =>{
 
     // Al iniciar el juego la serpiente debe estar en una posición
@@ -120,7 +124,9 @@ window.addEventListener("DOMContentLoaded", () =>{
 
         else if (axesX == axesEatX && axesY == axesEatY) {
             counterEat++;
+            score++ ;
             eat();
+            updateScore();
             
         }else{
             snake.clearRect(tail[0][0], tail[0][1], width, height);
@@ -129,6 +135,9 @@ window.addEventListener("DOMContentLoaded", () =>{
         }
     }
 
+    const updateScore = () => {
+        scoreB.innerHTML = score;
+    }
 
     function automatic() {
 
